@@ -16,6 +16,16 @@ jobs:
     steps:
       - run: echo "This is a test step"
 
+  artifact:
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "hello" > hello.txt
+      - name: Archive hello.txt
+        uses: actions/upload-artifact@v3
+        with:
+          name: helloreport
+          path: output/artifact/hello.txt
+
   integration:
     runs-on: ubuntu-latest
     continue-on-error: true
