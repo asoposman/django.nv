@@ -24,6 +24,7 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: helloreport
+          path: hello.txt
 
   integration:
     runs-on: ubuntu-latest
