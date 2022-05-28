@@ -31,20 +31,22 @@ jobs:
           destination: safety-artifact
           when: always
 
-          #  oast-frontend:
-          #    docker:
-          #      - image: node:alpine3.10
-          #    steps:
-          #      - checkout
-          #      - run: |
-          #          npm install
-          #          npm install -g retire
-          #          retire --severity high --outputformat json --outputpath retirejs-report.json
+  oast-frontend:
+    docker:
+      - image: node:alpine3.10
+    steps:
+      - checkout
+      - run: |
+          npm install
+          # npm install -g retire
+          # retire --severity high --outputformat json --outputpath retirejs-report.json
+          docker run --rm -v $(pwd):/src -w /src hysnsec/retire --severity high --outputformat json --outputpath retirejs-report.json
+          when: on_fail
 
-          #      - store_artifacts:
-          #          path: retirejs-report.json
-          #          destination: retirejs-artifact
-          #          when: always 
+      - store_artifacts:
+          path: retirejs-report.json
+          destination: retirejs-artifact
+          when: always 
 
 
   oast-frontend:
