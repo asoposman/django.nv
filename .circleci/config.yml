@@ -31,6 +31,21 @@ jobs:
           destination: safety-artifact
           when: always
 
+  oast-frontend:
+    docker:
+      - image: node:alpine3.10
+    steps:
+      - checkout
+      - run: |
+          npm install
+          npm install -g retire
+          retire --severity high --outputformat json --outputpath retirejs-report.json
+
+      - store_artifacts:
+          path: retirejs-report.json
+          destination: retirejs-artifact
+          when: always 
+
   integration:
     docker:
       - image: python:3.6
@@ -58,6 +73,9 @@ workflows:
           requires:
             - build
       - oast:
+          requires:
+            - test
+      - oast-frontend:
           requires:
             - test
       - integration:
