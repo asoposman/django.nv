@@ -67,7 +67,7 @@ jobs:
         with:
           node-version: '10.x'
 
-      - run: npm installl
+      - run: npm install
       - run: npm install -g retire
       - run: retire --severity high --outputformat json --outputpath retirejs-report.json
         continue-on-error: true
