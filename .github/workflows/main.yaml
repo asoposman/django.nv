@@ -54,7 +54,7 @@ jobs:
         with:
           name: Safety
           path: oast-results.json
-        if: always()                        # what is this for?
+        if: always()
 
   integration:
     runs-on: ubuntu-latest
