@@ -36,12 +36,11 @@ jobs:
       - image: node:alpine3.10
     steps:
       - checkout
-      - run: 
-          command: |
-            npm install
+      - run: | 
+          npm install
           # npm install -g retire
           # retire --severity high --outputformat json --outputpath retirejs-report.json
-            docker run --rm -v $(pwd):/src -w /src hysnsec/retire --severity high --outputformat json --outputpath retirejs-report.json
+          docker run --rm -v $(pwd):/src -w /src hysnsec/retire --severity high --outputformat json --outputpath retirejs-report.json
           when: on_fail
 
       - store_artifacts:
