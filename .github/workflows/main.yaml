@@ -68,9 +68,9 @@ jobs:
           node-version: '10.x'
 
       - run: npm install
-        #      - run: npm install -g retire
-        #     - run: retire --severity high --outputformat json --outputpath retirejs-report.json
-      - run: docker run --rm -v $PWD:/app gruebel/retirejs:latest --severity high --outputformat json --outputpath retirejs-report.json
+      - run: npm install -g retire
+      - run: retire --severity high --outputformat json --outputpath retirejs-report.json
+        #      - run: docker run --rm -v $PWD:/app gruebel/retirejs:latest --severity high --outputformat json --outputpath retirejs-report.json
         continue-on-error: true
 
       - uses: actions/upload-artifact@v2
