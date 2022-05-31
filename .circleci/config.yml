@@ -22,7 +22,9 @@ jobs:
     steps:
       - checkout
 
-      - run: docker run --rm -v $(pwd):/src hysnsec/trufflehog file:///src --json > trufflehog-output.json
+      - run: |
+          docker run --rm -v $(pwd):/src hysnsec/trufflehog file:///src --json > trufflehog-output.json
+          when: on_fail
 
       - store_artifacts:
           path: trufflehog-output.json
