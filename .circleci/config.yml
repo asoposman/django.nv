@@ -151,7 +151,7 @@ workflows:
             - test
       - zap_baseline:
           requires:
-            - oast-snyk
+            - test
       - integration:
           requires:
             - oast
