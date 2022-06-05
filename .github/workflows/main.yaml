@@ -158,13 +158,19 @@ jobs:
           path: snyk-results.json
         if: always()        # what is this for?
 
-  integration:
+  zap_baseline:
     runs-on: ubuntu-latest
     needs: test
     steps:
-      - run: echo "This is an integration step"
-      - run: exit 1
-        continue-on-error: true
+      - run: |
+          docker pull owasp/zap2docker-stable:2.10.0
+          docker run --user $(id -u):$(id -g) -w /zap -v $(pwd):/zap/wrk:rw --rm owasp/zap2docker-stable:2.10.0 zap-baseline.py -t ${{ secrets.PROD_URL }} -J zap-output.json
+          docker rmi owasp/zap2docker-stable:2.10.0
+      - uses: actions/upload-artifact@v2
+        with:
+          name: ZAP Scan
+          path: zap-output.json
+        if: always()
 
   prod:
     runs-on: ubuntu-latest
